@@ -17,4 +17,7 @@ assignees: ohyuchan123
 - [ ] TODO
 - [ ] TODO
 
+## 테스트 여부
+- [ ] TODO
+
 ## 참고할만한 자료(선택)
