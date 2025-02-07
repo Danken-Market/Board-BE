@@ -24,8 +24,15 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v4.0.0
 
+    - name: Decode and create application-secret.yml
+      run: |
+          echo "${{ secrets.APPLICATION_SECRET_BASE64 }}" | base64 --decode > application-secret.yml
+
+
     - name: Build with Gradle Wrapper
       run: ./gradlew build
+
+
 
   dependency-submission:
 
