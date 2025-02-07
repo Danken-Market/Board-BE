@@ -28,9 +28,31 @@ jobs:
       run: |
           echo "${{ secrets.APPLICATION_SECRET_BASE64 }}" | base64 --decode > application-secret.yml
 
+    - name: Build with Gradle
+      run: ./gradlew build --scan
 
-    - name: Build with Gradle Wrapper
-      run: ./gradlew build
+    - name: Upload Test Results
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: build/reports/tests/
+
+    - name: Backend CI Discord Notification (Success)
+      if: ${{ success() }}
+      uses: sarisia/actions-status-discord@v1
+      with:
+        title: ✅ Backend CI success ✅
+        webhook: ${{ secrets.DISCORD_WEBHOOK }}
+        color: 00FF00
+
+    - name: Backend CI Discord Notification (Failure)
+      if: ${{ failure() }}
+      uses: sarisia/actions-status-discord@v1
+      with:
+        title: ❗️ Backend CI failed ❗️
+        webhook: ${{ secrets.DISCORD_WEBHOOK }}
+        color: FF0000
 
   dependency-submission:
 
