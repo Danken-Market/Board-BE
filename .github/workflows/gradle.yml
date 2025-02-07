@@ -2,9 +2,9 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "dev" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "dev" ]
 
 jobs:
   build:
@@ -31,8 +31,6 @@ jobs:
 
     - name: Build with Gradle Wrapper
       run: ./gradlew build
-
-
 
   dependency-submission:
 
